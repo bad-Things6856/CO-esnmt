@@ -5917,6 +5917,16 @@ e.clientY+"px";
 
 <script src="script.js" defer></script>
 
+    <script>
+      setTimeout(() => {
+        const l = document.getElementById('loader');
+        if (l) {
+          l.style.opacity = '0';
+          setTimeout(() => l.remove(), 220);
+        }
+      }, 5000);
+    </script>
+ 
 </body>
 
 </html>
