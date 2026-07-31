@@ -207,7 +207,13 @@ header{position:sticky;top:0;z-index:1000;backdrop-filter: blur(6px); -webkit-ba
 .hero p{color:var(--muted);font-size:1.05rem;max-width:44ch}
 
 /* Hero visual (right) */
-.hero-visual{position:absolute;right:8vw;top:12vh;width:360px;pointer-events:none}
+.hero-visual{
+    position:absolute;
+    right:8vw;
+    top:12vh;
+    width:360px;
+    pointer-events:none;
+}
 .glass-window{
   width:100%;padding:16px;border-radius:16px;background:var(--card-bg);backdrop-filter: blur(var(--glass-blur));border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);
 }
