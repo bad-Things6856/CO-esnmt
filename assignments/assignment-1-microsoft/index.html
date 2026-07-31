@@ -1,189 +1,421 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Microsoft Explorer | Interactive Company Experience</title>
 
-<meta name="description" content="Interactive Microsoft Company Explorer with timeline, products, AI, Azure, Windows and more.">
-<meta name="keywords" content="Microsoft,Windows,Azure,Xbox,Surface,AI,Copilot,GitHub,LinkedIn">
-<meta name="author" content="Your Name">
+<title>
+Microsoft Explorer | Interactive Company Experience
+</title>
 
-<meta property="og:title" content="Microsoft Explorer">
-<meta property="og:image" content="assets/images/banner.png">
-<meta property="og:description" content="Explore Microsoft through an interactive experience.">
-<meta property="og:type" content="website">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="icon" href="assets/images/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="description"
+content="Interactive Microsoft Company Explorer with timeline, products, AI, Azure, Windows and more.">
+
+
+<meta name="keywords"
+content="Microsoft,Windows,Azure,Xbox,Surface,AI,Copilot,GitHub,LinkedIn">
+
+
+<meta name="author"
+content="Your Name">
+
+
+
+<meta property="og:title"
+content="Microsoft Explorer">
+
+
+<meta property="og:image"
+content="assets/images/banner.png">
+
+
+<meta property="og:description"
+content="Explore Microsoft through an interactive experience.">
+
+
+<meta property="og:type"
+content="website">
+
+
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+
+
+<link rel="icon"
+type="image/png"
+href="assets/images/favicon.png">
+
+
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+
 
 <link
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
+
+
+<link rel="stylesheet"
+href="style.css">
+
 
 </head>
 
+
+
 <body>
+
 
 <!-- ========================= -->
 <!-- LOADER                    -->
 <!-- ========================= -->
 
+
 <div id="loader">
+
 
 <div class="loader-box">
 
+
 <div class="loader-logo">
 
+
 <div class="sq red"></div>
+
 <div class="sq green"></div>
+
 <div class="sq blue"></div>
+
 <div class="sq yellow"></div>
+
 
 </div>
 
-<h2>Microsoft Explorer</h2>
 
-<p>Loading Experience...</p>
+
+<h2>
+Microsoft Explorer
+</h2>
+
+
+
+<p>
+Loading Experience...
+</p>
+
+
 
 <div class="loader-bar">
 
+
 <div class="loader-progress"></div>
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
 
 <!-- ========================= -->
 <!-- CURSOR GLOW -->
 <!-- ========================= -->
 
+
 <div id="cursorGlow"></div>
+
+
+
+
 
 <!-- ========================= -->
 <!-- SCROLL PROGRESS -->
 <!-- ========================= -->
 
+
 <div id="progressBar"></div>
+
+
+
+
 
 <!-- ========================= -->
 <!-- BACKGROUND -->
 <!-- ========================= -->
 
+
 <div id="bg">
 
+
 <span class="blob b1"></span>
+
 <span class="blob b2"></span>
+
 <span class="blob b3"></span>
+
 <span class="grid"></span>
 
+
 </div>
+
+
+
+
 
 <!-- ========================= -->
 <!-- NAVBAR -->
 <!-- ========================= -->
 
+
 <header>
+
 
 <nav class="navbar">
 
-<a href="#home" class="logo">
+
+
+<a href="#home"
+class="logo"
+aria-label="Microsoft Explorer Home">
+
+
 
 <div class="logo-box">
 
+
 <div class="r"></div>
+
 <div class="g"></div>
+
 <div class="b"></div>
+
 <div class="y"></div>
+
 
 </div>
 
-<span>Microsoft Explorer</span>
+
+
+<span>
+Microsoft Explorer
+</span>
+
+
 
 </a>
 
+
+
+
+
 <ul class="nav-links">
 
-<li><a href="#home">Home</a></li>
 
-<li><a href="#about">About</a></li>
 
-<li><a href="#history">History</a></li>
+<li>
+<a href="#home">
+Home
+</a>
+</li>
 
-<li><a href="#timeline">Timeline</a></li>
 
-<li><a href="#products">Products</a></li>
+<li>
+<a href="#about">
+About
+</a>
+</li>
 
-<li><a href="#windows">Windows</a></li>
 
-<li><a href="#azure">Azure</a></li>
+<li>
+<a href="#history">
+History
+</a>
+</li>
 
-<li><a href="#ai">AI</a></li>
 
-<li><a href="#gallery">Gallery</a></li>
+<li>
+<a href="#timeline">
+Timeline
+</a>
+</li>
 
-<li><a href="#resources">Resources</a></li>
+
+<li>
+<a href="#products">
+Products
+</a>
+</li>
+
+
+<li>
+<a href="#windows">
+Windows
+</a>
+</li>
+
+
+<li>
+<a href="#azure">
+Azure
+</a>
+</li>
+
+
+<li>
+<a href="#ai">
+AI
+</a>
+</li>
+
+
+<li>
+<a href="#gallery">
+Gallery
+</a>
+</li>
+
+
+<li>
+<a href="#resources">
+Resources
+</a>
+</li>
+
+
 
 </ul>
 
+
+
+
+
 <div class="nav-right">
 
-<button id="themeBtn">
+
+
+<button
+id="themeBtn"
+aria-label="Toggle theme">
+
 
 <i class="fa-solid fa-moon"></i>
 
+
 </button>
 
-<button id="searchBtn">
+
+
+
+
+<button
+id="searchBtn"
+aria-label="Open search">
+
 
 <i class="fa-solid fa-magnifying-glass"></i>
 
+
 </button>
 
-<button id="menuBtn">
+
+
+
+
+<button
+id="menuBtn"
+aria-label="Open menu">
+
 
 <i class="fa-solid fa-bars"></i>
 
+
 </button>
+
+
 
 </div>
 
+
+
 </nav>
 
+
 </header>
+
+
+
+
 
 <!-- ========================= -->
 <!-- SEARCH -->
 <!-- ========================= -->
 
+
 <div id="searchPanel">
+
 
 <div class="search-wrap">
 
+
+
 <input
 id="searchInput"
-type="text"
+type="search"
+autocomplete="off"
 placeholder="Search Microsoft products, AI, Azure, Windows...">
 
-<button>
+
+
+
+
+<button
+aria-label="Search">
+
 
 <i class="fa-solid fa-magnifying-glass"></i>
 
+
 </button>
 
+
+
 </div>
+
+
 
 <div id="searchResults"></div>
 
+
+
 </div>
+
+
+
+
 
 <!-- ========================= -->
 <!-- MOBILE NAV -->
