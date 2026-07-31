@@ -4,7 +4,10 @@ Project Name: Microsoft Explorer — Interactive Company Experience Website
 
 Repository: GitHub project: https://github.com/bad-Things6856/CO-esnmt
 
-Repository: GitHub assignment 1: https://bad-things6856.github.io/assignment-1-microsoft/
+Repository: GitHub assignment 1: 
+-https://bad-things6856.github.io/assignment-1-microsoft/
+
+-https://bad-things6856.github.io/CO-esnmt/assignments/assignment-1-microsoft/
 
 Target folder: assignments/assignment-1-microsoft
 
