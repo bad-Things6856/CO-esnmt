@@ -212,20 +212,77 @@ header{position:sticky;top:0;z-index:1000;backdrop-filter: blur(6px); -webkit-ba
     right:8vw;
     top:12vh;
     width:360px;
-    pointer-events:none;
+    pointer-events:auto;
 }
 .glass-window{
   width:100%;padding:16px;border-radius:16px;background:var(--card-bg);backdrop-filter: blur(var(--glass-blur));border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);
 }
 .window-head{display:flex;gap:8px;margin-bottom:12px}
 .window-head span{display:inline-block;width:10px;height:10px;border-radius:50%}
-.floating-card{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:8px;border-radius:10px;background:rgba(255,255,255,0.03);width:100%;margin-bottom:8px}
+
+.floating-card{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    gap:8px;
+    padding:12px;
+    width:100%;
+    margin-bottom:10px;
+
+    border-radius:10px;
+    background:rgba(255,255,255,.04);
+
+    cursor:pointer;
+    user-select:none;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+.floating-card:hover,
+.floating-card:focus{
+    transform:translateY(-8px);
+    box-shadow:0 14px 30px rgba(9,10,11,.15);
+}
+
+.floating-card.active{
+    transform:translateY(-5px) scale(1.04);
+    border:2px solid var(--accent);
+    background:rgba(0,103,184,.08);
+}
+
 .floating-card i{font-size:20px;color:var(--accent)}
 
 /* Hero mini cards */
+
 .hero-mini{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-.mini-card{padding:12px;border-radius:12px;background:var(--card-bg);border:1px solid var(--glass-border);min-width:110px;flex:1}
-.mini-card h3{margin:0;font-size:20px}
+
+.mini-card{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    padding:16px;
+    border-radius:12px;
+    background:var(--card-bg);
+    border:1px solid var(--glass-border);
+
+    min-width:110px;
+    flex:1;
+}
+
+.mini-card h3{
+    margin:0;
+    line-height:1.2;
+    font-size:20px;
+}
+
 .mini-card p{margin:0;color:var(--muted)}
 
 /* Quick dock */
@@ -234,12 +291,43 @@ header{position:sticky;top:0;z-index:1000;backdrop-filter: blur(6px); -webkit-ba
 #quickDock button:hover{transform:translateY(-4px)}
 
 /* Sections and cards */
-.section{padding:56px 16px}
+
+.section{
+    min-height:70vh;
+    padding:64px 16px;
+    border-top:1px solid rgba(0,0,0,.05);
+}
+.section:nth-of-type(even){
+    background:rgba(255,255,255,.02);
+}
+
+:root[data-theme="dark"] .section:nth-of-type(even){
+    background:rgba(255,255,255,.03);
+}
+
 .section .section-head{max-width:var(--max-width);margin:0 auto 28px;text-align:left}
 .badge{display:inline-block;background:rgba(0,0,0,0.06);padding:6px 10px;border-radius:999px;font-weight:700;color:var(--muted);margin-bottom:8px}
 .facts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:var(--max-width);margin:0 auto}
-.fact-card{padding:18px;border-radius:12px;background:var(--card-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow)}
-.fact-card h1{font-size:28px;margin:8px 0}
+
+.fact-card{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    padding:24px;
+    border-radius:12px;
+    background:var(--card-bg);
+    border:1px solid var(--glass-border);
+    box-shadow:var(--glass-shadow);
+}
+
+.fact-card h1{
+    font-size:28px;
+    margin:0;
+    line-height:1.2;
+}
 
 /* Glass info on About */
 .glass-info{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));border:1px solid var(--glass-border)}
