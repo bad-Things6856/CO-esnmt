@@ -55,26 +55,36 @@ document.addEventListener('DOMContentLoaded', () => {
 // Mobile menu toggle
 if (menuBtn && mobileMenu) {
 
-menuBtn.addEventListener('click', () => {
-  const open = mobileMenu.classList.toggle('open');
+  menuBtn.addEventListener('click', (e) => {
 
-  menuBtn.setAttribute(
-    'aria-expanded',
-    String(open)
-  );
-});
+    e.stopPropagation();
 
+    const open = mobileMenu.classList.toggle('open');
+
+    menuBtn.setAttribute(
+      'aria-expanded',
+      String(open)
+    );
+
+  });
 
 
   // Close when clicking outside
   document.addEventListener('click', (e) => {
 
     if (
+      mobileMenu.classList.contains('open') &&
       !mobileMenu.contains(e.target) &&
       !menuBtn.contains(e.target)
     ) {
-      mobileMenu.classList.remove('active');
-      menuBtn.setAttribute('aria-expanded', 'false');
+
+      mobileMenu.classList.remove('open');
+
+      menuBtn.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+
     }
 
   });
@@ -84,8 +94,14 @@ menuBtn.addEventListener('click', () => {
   mobileMenu.querySelectorAll('a').forEach(link => {
 
     link.addEventListener('click', () => {
-      mobileMenu.classList.remove('active');
-      menuBtn.setAttribute('aria-expanded', 'false');
+
+      mobileMenu.classList.remove('open');
+
+      menuBtn.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+
     });
 
   });
