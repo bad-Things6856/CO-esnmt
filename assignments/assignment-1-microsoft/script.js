@@ -55,13 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
 // Mobile menu toggle
 if (menuBtn && mobileMenu) {
 
-  menuBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
+menuBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
 
-    const open = mobileMenu.classList.toggle('active');
+  menuBtn.setAttribute(
+    'aria-expanded',
+    String(open)
+  );
+});
 
-    menuBtn.setAttribute('aria-expanded', String(open));
-  });
 
 
   // Close when clicking outside
