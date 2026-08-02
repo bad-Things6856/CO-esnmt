@@ -6,10 +6,10 @@ name=assignments/assignment-1-microsoft/style.css
   --glass-border: rgba(255,255,255,0.07);
   --text: #0b0f14;
   --muted: #6b7280;
-  --bg: #f6f7fb;
+  --bg: #dde8f5;
   --accent: #0067b8; /* Microsoft-like blue */
   --accent-2: linear-gradient(90deg,#0067b8,#00a4ff);
-  --card-bg: rgba(255,255,255,0.7);
+  --card-bg: rgba(255,255,255,0.9);
   --glass-shadow: 0 6px 20px rgba(9,10,11,0.06);
   --glass-border-2: rgba(255,255,255,0.14);
   --glass-highlight: rgba(255,255,255,0.35);
@@ -303,7 +303,9 @@ header{position:sticky;top:0;z-index:1000;backdrop-filter: blur(6px); -webkit-ba
     border-top:1px solid rgba(0,0,0,.05);
 }
 .section:nth-of-type(even){
-    background:rgba(255,255,255,.02);
+    background:rgba(0,103,184,.04);
+}
+
 }
 
 :root[data-theme="dark"] .section:nth-of-type(even){
@@ -513,4 +515,15 @@ img{
     .timeline-card img{
         height:200px;
     }
+}
+
+
+.hero h1{
+    color:#111827;
+    text-shadow:0 2px 10px rgba(255,255,255,0.4);
+}
+
+.hero p{
+    color:#374151;
+    font-weight:500;
 }
