@@ -369,6 +369,143 @@ a:focus, button:focus, input:focus{
   .hero h1{font-size:28px}
   .loader-box{width:92%}
 }
+/* ==========================================================
+   IMAGE STYLING
+========================================================== */
 
-/* Small helper to ensure images (if any) fit */
-img, svg{max-width:100%;height:auto;display:block}
+/* Global Images */
+img{
+    max-width:100%;
+    height:auto;
+    display:block;
+    border-radius:12px;
+}
+
+/* Timeline */
+.timeline-card img{
+    width:100%;
+    max-width:320px;
+    height:220px;
+    margin:20px auto;
+    object-fit:cover;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+/* Founder Images */
+.person-card img{
+    width:180px;
+    height:180px;
+    margin:0 auto 20px;
+    object-fit:cover;
+    border-radius:50%;
+    border:4px solid rgba(255,255,255,.15);
+    box-shadow:0 8px 24px rgba(0,0,0,.15);
+}
+
+/* CEO */
+.ceo-image img{
+    width:100%;
+    max-width:420px;
+    height:520px;
+    margin:auto;
+    object-fit:cover;
+    border-radius:20px;
+    box-shadow:0 12px 28px rgba(0,0,0,.18);
+}
+
+/* Gallery */
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+}
+
+.gallery-item{
+    overflow:hidden;
+    border-radius:16px;
+}
+
+.gallery-item img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    transition:transform .4s ease;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.08);
+}
+
+/* Image Modal */
+#modalImage{
+    max-width:90vw;
+    max-height:80vh;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border-radius:16px;
+}
+
+/* History Images */
+.history-step img{
+    width:100%;
+    max-width:320px;
+    height:200px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+/* Product Images (if added later) */
+.product-card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+/* Surface */
+.surface-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+/* Azure */
+.cloud-node img{
+    width:80px;
+    height:80px;
+    object-fit:contain;
+    margin:auto;
+}
+
+/* Resource Icons */
+.resource-card img{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+    margin:0 auto 15px;
+}
+
+/* Responsive */
+@media (max-width:768px){
+
+    .person-card img{
+        width:150px;
+        height:150px;
+    }
+
+    .ceo-image img{
+        max-width:100%;
+        height:420px;
+    }
+
+    .gallery-item img{
+        height:200px;
+    }
+
+    .timeline-card img{
+        height:200px;
+    }
+}
