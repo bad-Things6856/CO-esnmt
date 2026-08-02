@@ -52,15 +52,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile menu toggle
-  if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', String(open));
-      // simple transform toggle (CSS should transition)
-      mobileMenu.style.transform = open ? 'translateX(0)' : 'translateX(110%)';
+// Mobile menu toggle
+if (menuBtn && mobileMenu) {
+
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    const open = mobileMenu.classList.toggle('active');
+
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
+
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+
+    if (
+      !mobileMenu.contains(e.target) &&
+      !menuBtn.contains(e.target)
+    ) {
+      mobileMenu.classList.remove('active');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+  });
+
+
+  // Close when clicking menu links
+  mobileMenu.querySelectorAll('a').forEach(link => {
+
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      menuBtn.setAttribute('aria-expanded', 'false');
     });
-  }
+
+  });
+
+}
+
 
   // Search panel toggle
   if (searchBtn && searchPanel) {
