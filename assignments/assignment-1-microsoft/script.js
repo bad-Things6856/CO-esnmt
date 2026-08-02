@@ -65,6 +65,8 @@ if (menuBtn && mobileMenu) {
       'aria-expanded',
       String(open)
     );
+document.body.style.overflow = open ? 'hidden' : '';
+
 
   });
 
@@ -78,6 +80,7 @@ document.addEventListener('click', (e) => {
   ) {
     mobileMenu.classList.remove('open');
     menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
   }
 
 });
@@ -89,6 +92,7 @@ mobileMenu.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
     mobileMenu.classList.remove('open');
     menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
   });
 
 });
