@@ -1,1 +1,799 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Complete educational single-page site on the history, architecture, and evolution of the CPU. Includes timeline, diagrams, product table, comparisons, glossary, and interactive features." />
+  <title>CPU — History, Architecture & Evolution</title>
 
+  <!-- Primary styles: glassmorphism, gradients, responsive layout -->
+  <style>
+    /* =============================
+       CSS VARIABLES & THEME
+       ============================= */
+    :root{
+      --bg: #0f1724;
+      --card: rgba(255,255,255,0.06);
+      --muted: rgba(255,255,255,0.65);
+      --glass: rgba(255,255,255,0.06);
+      --accent-start: #6dd3ff;
+      --accent-end: #8b5cf6;
+      --glass-border: rgba(255,255,255,0.08);
+      --text: #e6eef8;
+      --radius: 14px;
+      --max-width: 1100px;
+      --glass-blur: 8px;
+      --ease: cubic-bezier(.2,.9,.3,1);
+    }
+    [data-theme="light"]{
+      --bg: #f6f9ff;
+      --card: rgba(255,255,255,0.8);
+      --muted: #334155;
+      --glass: rgba(255,255,255,0.7);
+      --glass-border: rgba(0,0,0,0.06);
+      --text: #0b1220;
+    }
+
+    /* =============================
+       BASIC LAYOUT
+       ============================= */
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg), #071027 60%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding-top:72px; /* for sticky header */
+    }
+    .container{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:28px;
+    }
+
+    /* =============================
+       NAV
+       ============================= */
+    header.site-header{
+      position:fixed;
+      top:10px;
+      left:50%;
+      transform:translateX(-50%);
+      width:calc(100% - 40px);
+      max-width:1200px;
+      z-index:60;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 14px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:16px;
+      border:1px solid var(--glass-border);
+      backdrop-filter: blur(var(--glass-blur));
+      box-shadow: 0 6px 24px rgba(2,6,23,0.6);
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .logo{
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--accent-start),var(--accent-end));
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      color:#04233a;
+      box-shadow: 0 6px 18px rgba(139,92,246,0.16);
+    }
+    nav.primary{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    nav.primary a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:8px;
+      font-size:0.95rem;
+    }
+    nav.primary a:hover{color:var(--text); background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+
+    /* =============================
+       PAGE COMPONENTS
+       ============================= */
+    h1{font-size:1.8rem;margin:0 0 6px}
+    h2{font-size:1.2rem;margin:0 0 10px}
+    .hero{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+    .hero-card{
+      flex:1;
+      padding:20px;
+      border-radius:var(--radius);
+      background:var(--card);
+      border:1px solid var(--glass-border);
+      backdrop-filter: blur(var(--glass-blur));
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    }
+    .hero-visual{
+      width:260px;
+      min-width:180px;
+      aspect-ratio:1/1;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent-start),var(--accent-end));
+      display:grid;
+      place-items:center;
+      color:#04233a;
+      font-weight:700;
+      font-size:1.1rem;
+    }
+
+    /* =============================
+       SECTIONS
+       ============================= */
+    section{
+      margin:20px 0 36px;
+      padding:18px;
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      border:1px solid var(--glass-border);
+    }
+    .grid{
+      display:grid;
+      gap:18px;
+    }
+    .two-col{grid-template-columns:1fr 360px}
+    @media (max-width:900px){
+      .two-col{grid-template-columns:1fr}
+      .hero{flex-direction:column}
+      .hero-visual{width:100%}
+    }
+
+    /* =============================
+       TIMELINE
+       ============================= */
+    .timeline{
+      position:relative;
+      padding:20px 10px;
+    }
+    .timeline-line{
+      position:absolute;
+      left:28px;
+      top:0;
+      bottom:0;
+      width:4px;
+      background:linear-gradient(180deg,var(--accent-start),var(--accent-end));
+      border-radius:8px;
+      transform-origin:center;
+    }
+    .tl-item{
+      position:relative;
+      padding-left:72px;
+      margin-bottom:28px;
+    }
+    .tl-item time{
+      display:block;
+      font-weight:600;
+      color:var(--accent-start);
+      margin-bottom:6px;
+    }
+    .tl-bubble{
+      background:var(--card);
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid var(--glass-border);
+    }
+
+    /* =============================
+       CARDS & EXPANDABLE
+       ============================= */
+    .expandable{
+      cursor:pointer;
+      transition:all .28s var(--ease);
+      overflow:hidden;
+    }
+    .expandable .summary{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .expandable .details{
+      max-height:0;
+      opacity:0;
+      transition:max-height .35s var(--ease),opacity .35s var(--ease);
+    }
+    .expandable[open] .details{
+      max-height:1200px;
+      opacity:1;
+      margin-top:12px;
+    }
+    .chip{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:0.85rem}
+
+    /* =============================
+       TABLES
+       ============================= */
+    .table-wrap{overflow:auto;border-radius:12px}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:720px;
+      background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.0));
+    }
+    th,td{
+      padding:10px 12px;
+      text-align:left;
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      font-size:0.92rem;
+      color:var(--muted);
+    }
+    th{color:var(--text);background:transparent; position:sticky; top:0; backdrop-filter: blur(4px)}
+    tr:hover td{background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));}
+
+    /* =============================
+       SEARCH & UI
+       ============================= */
+    .controls{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    input[type="search"]{
+      padding:9px 12px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;color:var(--text);
+      outline:none;min-width:220px;
+    }
+    .btn{
+      padding:8px 10px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent-start),var(--accent-end));color:#04233a;font-weight:600;cursor:pointer;
+    }
+
+    /* =============================
+       FOOTER & MISC
+       ============================= */
+    footer{opacity:0.8;font-size:0.9rem;padding:22px 0;text-align:center;color:var(--muted)}
+    .progress{
+      position:fixed;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--accent-start),var(--accent-end));
+      transform-origin:left; z-index:80;
+    }
+
+    /* =============================
+       BACK TO TOP
+       ============================= */
+    .back-to-top{
+      position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent-start),var(--accent-end));
+      display:grid;place-items:center;color:#04233a;font-weight:700;border:none;box-shadow:0 8px 20px rgba(2,6,23,0.5);cursor:pointer;z-index:80;
+    }
+
+    /* =============================
+       SMALL HELPERS
+       ============================= */
+    .muted{color:var(--muted);font-size:0.95rem}
+    a.inline{color:var(--accent-start);text-decoration:none}
+    .svg-illus{width:100%;max-width:680px;height:auto}
+  </style>
+</head>
+<body>
+  <!-- Scroll progress bar -->
+  <div id="progress" class="progress" style="transform:scaleX(0)"></div>
+
+  <!-- Header / Sticky Navigation -->
+  <header class="site-header" role="banner" aria-label="Main header">
+    <a class="brand" href="#top">
+      <div class="logo" aria-hidden="true">CPU</div>
+      <div>
+        <div style="font-weight:700">CPU — History & Architecture</div>
+        <div class="muted" style="font-size:0.82rem">Interactive single-page guide</div>
+      </div>
+    </a>
+
+    <nav class="primary" role="navigation" aria-label="Primary">
+      <a href="#intro">Intro</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#manufacturing">Manufacturing</a>
+      <a href="#companies">Companies</a>
+      <a href="#products">Products</a>
+      <a href="#future">Future</a>
+      <a href="#glossary">Glossary</a>
+    </nav>
+
+    <div class="controls" role="region" aria-label="controls">
+      <input id="site-search" type="search" placeholder="Search sections, companies, CPUs..." aria-label="Search the page" />
+      <button id="theme-toggle" class="btn" aria-pressed="false">Dark/Light</button>
+    </div>
+  </header>
+
+  <!-- Main content container -->
+  <main class="container" id="top">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-card" role="article" aria-labelledby="hero-title">
+        <h1 id="hero-title">The Central Processing Unit — A Complete Guide</h1>
+        <p class="muted">From mechanical computation to modern chiplets and AI accelerators. This guide presents history, architecture, manufacturing, and modern innovations with interactive diagrams and an expandable timeline.</p>
+        <p>Use the timeline and searchable cards to dive deeper. The content is structured so you can link directly to subsections for sharing or assignments.</p>
+        <p class="muted">Tip: press the Dark/Light button to toggle theme. Use the search box to filter content on this page.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;min-width:220px">
+        <div class="hero-visual" aria-hidden="true">CPU GUIDE</div>
+        <div style="padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--glass-border);backdrop-filter: blur(var(--glass-blur))">
+          <strong>Quick links</strong>
+          <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px">
+            <a class="inline" href="#birth">Birth of the Microprocessor</a>
+            <a class="inline" href="#timeline">Interactive Timeline</a>
+            <a class="inline" href="#architecture">CPU Architecture</a>
+            <a class="inline" href="#modern">Modern CPUs</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section id="intro" aria-labelledby="intro-title">
+      <h2 id="intro-title">1. Introduction — What is a CPU?</h2>
+      <p>The Central Processing Unit (CPU) is the primary component of a computer that performs most of the processing inside a computer. It executes instruction cycles—fetching instructions from memory, decoding them, executing arithmetic/logic operations, and writing results back. Early computers used separate circuitry and manual controls; modern CPUs integrate billions of transistors on a single silicon die and coordinate multiple cores, caches, and specialized accelerators.</p>
+
+      <h3>Why it was invented</h3>
+      <p>Computation needs for scientific calculations, cryptography, and automation created demand for faster, more reliable computing machines. CPUs condensed control and arithmetic logic into purpose-built circuits to improve speed, reliability, and programmability.</p>
+
+      <h3>Why computers needed CPUs</h3>
+      <p>Without a central processor, each new task required custom wiring or manual reconfiguration. The CPU standardized instruction execution and enabled software-driven general-purpose computation, which made modern software ecosystems possible.</p>
+    </section>
+
+    <!-- BEFORE THE CPU -->
+    <section id="before" aria-labelledby="before-title">
+      <h2 id="before-title">2. Before the CPU — Precursors</h2>
+      <div class="grid two-col">
+        <article>
+          <h3>Mechanical calculators & Analytical Engines</h3>
+          <p>Long before electronics, mechanical devices—like Pascal's and Leibniz's calculators—performed arithmetic. Charles Babbage proposed the Analytical Engine (1830s), which featured separate units for arithmetic and control via punched cards; Ada Lovelace, working with Babbage, wrote what is often considered the first algorithm intended for processing on a machine.</p>
+
+          <h3>Vacuum tubes, relays, and ENIAC</h3>
+          <p>The earliest electronic computers used vacuum tubes (for amplification and switching) and electromechanical relays. ENIAC (1945) completed large-scale calculations with thousands of vacuum tubes, setting the stage for stored-program concept development.</p>
+
+          <h3>Stored-program computers</h3>
+          <p>The stored-program concept—where instructions are stored in memory like data—was a critical advancement (von Neumann architecture). It allowed programs to be modified by other programs and enabled the modern software model.</p>
+        </article>
+
+        <aside>
+          <h3 class="muted">Milestones</h3>
+          <ul>
+            <li>1830s — Babbage proposes Analytical Engine</li>
+            <li>1840s — Ada Lovelace publishes algorithm notes</li>
+            <li>1940s — ENIAC, Colossus and early electronic computers</li>
+            <li>1945 — von Neumann architecture formalized</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- BIRTH OF MICROPROCESSOR -->
+    <section id="birth" aria-labelledby="birth-title">
+      <h2 id="birth-title">3. Birth of the Microprocessor</h2>
+      <p>The microprocessor integrated CPU functions onto a single semiconductor chip. This radically reduced cost, size, and power while increasing reliability and programmability.</p>
+
+      <div class="grid">
+        <details class="expandable" open>
+          <summary class="summary">
+            <div>
+              <strong>Intel 4004 (1971)</strong>
+              <div class="muted">The world's first commercial microprocessor — 4-bit, built for calculators.</div>
+            </div>
+            <div class="chip">1971</div>
+          </summary>
+          <div class="details">
+            <p>The Intel 4004 was designed for Busicom calculators and implemented the CPU on a single chip. It demonstrated the viability of the microprocessor and inspired further designs like the 8008 and 8080.</p>
+          </div>
+        </details>
+
+        <details class="expandable">
+          <summary class="summary">
+            <div>
+              <strong>Intel 8008, 8080 & MOS/Other CPUs</strong>
+              <div class="muted">Early 8-bit CPUs that powered hobbyist computers and embedded devices.</div>
+            </div>
+            <div class="chip">1972–1978</div>
+          </summary>
+          <div class="details">
+            <p>The Intel 8008 and 8080 influenced the creation of microcomputers. Motorola 6800, MOS 6502, and Zilog Z80 fueled the home computer revolution and arcade systems.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" aria-labelledby="timeline-title">
+      <h2 id="timeline-title">4. CPU Evolution Timeline — Interactive</h2>
+      <p class="muted">Click a timeline entry to expand details. Use the left gutter as the guiding line of progress.</p>
+
+      <div class="timeline" id="timeline-list" role="list">
+        <div class="timeline-line" aria-hidden="true"></div>
+
+        <article class="tl-item" role="listitem" id="tl-1971">
+          <time>1971 — Intel 4004</time>
+          <div class="tl-bubble">
+            <strong>1971:</strong> Intel releases the 4004, the first single-chip CPU. This started the microprocessor era.
+          </div>
+        </article>
+
+        <article class="tl-item" id="tl-1978">
+          <time>1978 — Home Computer Era</time>
+          <div class="tl-bubble">
+            <strong>Late 1970s–1980s:</strong> 8-bit CPUs (6502, Z80) power machines like Apple II, Commodore 64, TRS-80.
+          </div>
+        </article>
+
+        <article class="tl-item" id="tl-1990">
+          <time>1990s — RISC and superscalar</time>
+          <div class="tl-bubble">
+            <strong>1990s:</strong> RISC designs mature (ARM, MIPS), superscalar and out-of-order execution appear in desktop/server CPUs.
+          </div>
+        </article>
+
+        <article class="tl-item" id="tl-2006">
+          <time>2006 — Multicore</time>
+          <div class="tl-bubble">
+            <strong>2000s:</strong> Multicore becomes mainstream (dual, quad cores); focus shifts to parallelism and power efficiency.
+          </div>
+        </article>
+
+        <article class="tl-item" id="tl-2019">
+          <time>2019–2022 — Chiplets & AI</time>
+          <div class="tl-bubble">
+            <strong>Recent:</strong> Chiplet architectures, 3D-stacking, AI accelerators, and hybrid core designs (performance + efficiency) become common.
+          </div>
+        </article>
+
+        <article class="tl-item" id="tl-2024">
+          <time>2020–Present</time>
+          <div class="tl-bubble">
+            <strong>2020s:</strong> Apple Silicon demonstrates high-efficiency ARM performance at scale; AMD's chiplet approach reshapes server and desktop design; AI inference accelerators integrated in SoCs.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section id="architecture" aria-labelledby="arch-title">
+      <h2 id="arch-title">5. CPU Architecture — Core Components & Instruction Cycle</h2>
+      <div class="grid two-col">
+        <article>
+          <h3>Core Building Blocks</h3>
+          <ul>
+            <li><strong>ALU (Arithmetic Logic Unit):</strong> Performs arithmetic and logic operations.</li>
+            <li><strong>Control Unit:</strong> Directs data flow and decodes instructions.</li>
+            <li><strong>Registers:</strong> Very small, very fast storage locations inside the CPU.</li>
+            <li><strong>Cache (L1, L2, L3):</strong> Small, fast memory layers that reduce average access time to main memory.</li>
+            <li><strong>Clock:</strong> Synchronizes the CPU's operations.</li>
+            <li><strong>Bus:</strong> Data pathways between CPU, memory, and peripherals.</li>
+          </ul>
+
+          <h3>Instruction Cycle</h3>
+          <ol>
+            <li><strong>Fetch:</strong> Retrieve the next instruction from memory.</li>
+            <li><strong>Decode:</strong> Break down the instruction into control signals.</li>
+            <li><strong>Execute:</strong> Perform ALU operations, memory reads/writes.</li>
+            <li><strong>Write Back:</strong> Store results in registers or memory.</li>
+          </ol>
+        </article>
+
+        <aside>
+          <h3>Interactive Diagram</h3>
+          <!-- SVG CPU illustration with clickable parts -->
+          <svg class="svg-illus" viewBox="0 0 800 480" role="img" aria-label="Simplified CPU block diagram">
+            <!-- Background -->
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#6dd3ff" />
+                <stop offset="1" stop-color="#8b5cf6" />
+              </linearGradient>
+            </defs>
+
+            <!-- CPU border -->
+            <rect x="60" y="30" width="680" height="420" rx="20" fill="none" stroke="url(#g1)" stroke-width="4" opacity="0.9"/>
+
+            <!-- ALU -->
+            <g id="svg-alu" tabindex="0" role="button" aria-label="ALU: click to learn more">
+              <rect x="120" y="80" width="220" height="120" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" />
+              <text x="230" y="150" text-anchor="middle" font-size="18" fill="var(--text)">ALU</text>
+            </g>
+
+            <!-- Registers -->
+            <g id="svg-reg" tabindex="0" role="button" aria-label="Registers: click to learn more">
+              <rect x="360" y="80" width="170" height="120" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" />
+              <text x="445" y="150" text-anchor="middle" font-size="16" fill="var(--text)">Registers</text>
+            </g>
+
+            <!-- Control Unit -->
+            <g id="svg-cu" tabindex="0" role="button" aria-label="Control Unit: click to learn more">
+              <rect x="540" y="80" width="180" height="120" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" />
+              <text x="630" y="150" text-anchor="middle" font-size="15" fill="var(--text)">Control Unit</text>
+            </g>
+
+            <!-- Cache -->
+            <g id="svg-cache" tabindex="0" role="button" aria-label="Cache: click to learn more">
+              <rect x="120" y="220" width="300" height="160" rx="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" />
+              <text x="270" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Cache (L1 / L2 / L3)</text>
+            </g>
+
+            <!-- Memory Bus -->
+            <line x1="480" y1="320" x2="680" y2="380" stroke="rgba(255,255,255,0.06)" stroke-width="6" stroke-linecap="round"/>
+            <text x="580" y="360" font-size="12" fill="var(--muted)">Memory Bus / I/O</text>
+          </svg>
+
+          <div id="svg-info" class="muted" style="margin-top:10px">Click diagram areas to read short descriptions.</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- MANUFACTURING -->
+    <section id="manufacturing" aria-labelledby="manu-title">
+      <h2 id="manu-title">6. Manufacturing Process</h2>
+      <p>Modern CPUs are produced with highly refined semiconductor manufacturing processes. Process steps include:</p>
+      <ul>
+        <li><strong>Silicon & Wafer creation:</strong> High-purity silicon is grown into ingots and sliced into wafers.</li>
+        <li><strong>Photolithography:</strong> Patterns are optically transferred to wafers using masks and multiple exposure steps.</li>
+        <li><strong>Transistor formation & doping:</strong> Ion implantation and deposition create transistor structures.</li>
+        <li><strong>Metallization & interconnects:</strong> Multiple metal layers create wiring between devices.</li>
+        <li><strong>Packaging & testing:</strong> Dies are tested, cut, and packaged into chips with heat spreaders and pins/BGA pads.</li>
+      </ul>
+      <p class="muted">Important: node sizes (e.g., 7nm, 5nm) indicate process generations and often marketing names. Effective transistor density and performance depend on many factors beyond just the nm number.</p>
+    </section>
+
+    <!-- MOORE'S LAW -->
+    <section id="moore" aria-labelledby="moore-title">
+      <h2 id="moore-title">7. Moore's Law</h2>
+      <p>Gordon Moore observed that transistor counts on integrated circuits roughly double every 18–24 months. This empirical observation (Moore's Law) drove expectations for exponential improvement in compute density.</p>
+      <p>Whether it still applies: physical scaling faces difficulties (leakage, variability), so the industry has shifted toward architecture, packaging, and specialized accelerators rather than raw transistor scaling alone.</p>
+    </section>
+
+    <!-- COMPANIES -->
+    <section id="companies" aria-labelledby="companies-title">
+      <h2 id="companies-title">8. CPU Companies — Histories & Innovations</h2>
+
+      <!-- Expandable cards for companies -->
+      <div style="display:grid;gap:12px">
+        <details class="expandable" open>
+          <summary class="summary"><div><strong>Intel</strong><div class="muted">Founded 1968 — x86 line, Pentium, Core</div></div><div class="chip">Leader: x86</div></summary>
+          <div class="details">
+            <p>Intel popularized the microprocessor with the 4004 and later dominated PCs with x86 architecture (8086, 286, 386, 486, Pentium, Core series). Intel innovated in process, memory controllers, and chipset integration. Recent shifts include hybrid architectures (Meteor Lake, Core Ultra).</p>
+          </div>
+        </details>
+
+        <details class="expandable">
+          <summary class="summary"><div><strong>AMD</strong><div class="muted">Founded 1969 — Athlon, Ryzen, EPYC</div></div><div class="chip">Chiplets</div></summary>
+          <div class="details">
+            <p>AMD challenged Intel with Athlon in the early 2000s and more recently with Ryzen and EPYC CPUs. AMD's chiplet approach (separating I/O die and CPU chiplets) scaled performance while improving manufacturing yield.</p>
+          </div>
+        </details>
+
+        <details class="expandable">
+          <summary class="summary"><div><strong>Apple Silicon</strong><div class="muted">ARM-based SoCs: M1, M2, M3</div></div><div class="chip">SoC</div></summary>
+          <div class="details">
+            <p>Apple transitioned macs from x86 to high-performance ARM-based SoCs starting with M1 in 2020. Their tight hardware-software co-design delivered excellent performance-per-watt for laptops and desktops.</p>
+          </div>
+        </details>
+
+        <!-- More companies: ARM, Qualcomm, NVIDIA, IBM, Samsung, MediaTek -->
+      </div>
+    </section>
+
+    <!-- CPU GENERATIONS -->
+    <section id="generations" aria-labelledby="gen-title">
+      <h2 id="gen-title">9. CPU Generations — Selected Intel & AMD Lineage</h2>
+      <p class="muted">This brief overview highlights major product lines; each has many sub-variants and microarchitectural changes.</p>
+
+      <details class="expandable" open>
+        <summary class="summary"><div><strong>Intel — Major families</strong></div></summary>
+        <div class="details">
+          <ul>
+            <li><strong>4004:</strong> First microprocessor (4-bit).</li>
+            <li><strong>Pentium:</strong> Superscalar design, MMX, later enhancements.</li>
+            <li><strong>Core Series:</strong> Core 2, Core i3/i5/i7/i9 — improved power/perf and multicore scaling.</li>
+            <li><strong>Core Ultra:</strong> Hybrid P/E core designs, power-efficiency focus.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="expandable">
+        <summary class="summary"><div><strong>AMD — Major families</strong></div></summary>
+        <div class="details">
+          <ul>
+            <li><strong>Athlon:</strong> Competed against early Intel Pentium CPUs.</li>
+            <li><strong>Ryzen:</strong> Zen microarchitecture delivered high IPC and multicore scaling.</li>
+            <li><strong>EPYC & Threadripper:</strong> Server and workstation-focused multi-die designs.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- PRODUCT DATABASE (short sample) -->
+    <section id="products" aria-labelledby="products-title">
+      <h2 id="products-title">10. Product Database — Selected CPUs</h2>
+      <div class="table-wrap" role="region" aria-label="CPU product table">
+        <table>
+          <thead>
+            <tr>
+              <th>CPU</th><th>Year</th><th>Arch</th><th>Cores</th><th>Threads</th><th>Process</th><th>Cache</th><th>TDP</th><th>Notable</th>
+            </tr>
+          </thead>
+          <tbody id="product-table">
+            <tr>
+              <td>Intel 4004</td><td>1971</td><td>4-bit</td><td>1</td><td>—</td><td>10 µm (historic)</td><td>N/A</td><td>—</td><td>First microprocessor</td>
+            </tr>
+            <tr>
+              <td>Intel Core i9-13900K</td><td>2022</td><td>x86-64 (Raptor Lake)</td><td>24</td><td>32</td><td>Intel 7</td><td>36 MB</td><td>253W</td><td>Hybrid P/E core design</td>
+            </tr>
+            <tr>
+              <td>AMD Ryzen 9 7950X</td><td>2022</td><td>x86-64 (Zen 4)</td><td>16</td><td>32</td><td>5 nm TSMC</td><td>64 MB</td><td>170W</td><td>Chiplet design</td>
+            </tr>
+            <tr>
+              <td>Apple M1</td><td>2020</td><td>ARM-based</td><td>8</td><td>8</td><td>5 nm TSMC</td><td>Unified</td><td>~10–20W</td><td>SoC efficiency</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- COMPARISONS -->
+    <section id="comparison" aria-labelledby="comp-title">
+      <h2 id="comp-title">11. CPU vs GPU vs TPU vs NPU</h2>
+      <p>In short:</p>
+      <ul>
+        <li><strong>CPU:</strong> General-purpose, good for serial tasks and control flow.</li>
+        <li><strong>GPU:</strong> SIMD/SIMT architecture optimized for massively parallel floating-point work (graphics, ML training/inference).</li>
+        <li><strong>TPU / NPU:</strong> Specialized accelerators for matrix multiplication and neural networks offering high throughput and power efficiency for AI workloads.</li>
+      </ul>
+    </section>
+
+    <!-- MODERN -->
+    <section id="modern" aria-labelledby="modern-title">
+      <h2 id="modern-title">12. Modern CPUs — Chiplets, Hybrid Cores, and AI</h2>
+      <p>Recent trends include chiplet architectures to improve yield, 3D cache stacking (e.g., AMD 3D V-Cache), hybrid core topologies (big.LITTLE-like performance+efficiency), and dedicated AI accelerators integrated into SoCs/CPUs.</p>
+    </section>
+
+    <!-- FUTURE -->
+    <section id="future" aria-labelledby="future-title">
+      <h2 id="future-title">13. The Future — Quantum, Optical, Neuromorphic</h2>
+      <p>Longer-term directions include quantum accelerators for specific problems, optical interconnects for bandwidth-limited systems, neuromorphic chips modeled on biological neurons, and continued scaling to 2nm and below using innovative materials and 3D stacking.</p>
+    </section>
+
+    <!-- FAQ & GLOSSARY -->
+    <section id="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">14. FAQ & Glossary</h2>
+      <details open>
+        <summary>What is IPC?</summary>
+        <div class="details"><p>Instructions per Cycle — a measure of how many instructions a CPU can complete per clock cycle on average.</p></div>
+      </details>
+
+      <h3 id="glossary">Glossary</h3>
+      <dl>
+        <dt>ALU</dt><dd>Arithmetic Logic Unit</dd>
+        <dt>IPC</dt><dd>Instructions per Clock</dd>
+        <dt>SoC</dt><dd>System on Chip</dd>
+      </dl>
+    </section>
+
+    <footer role="contentinfo">
+      <p>Created for educational use. This single-page guide is intended as an overview and starting point; follow links and references for deeper study.</p>
+      <p class="muted">Sources: historical documents, vendor manuals, academic publications. Not exhaustive. For citations and in-depth references, expand sections or request more details.</p>
+    </footer>
+  </main>
+
+  <!-- Back to top -->
+  <button id="backTop" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
+  <!-- =============================
+       JavaScript: interactions
+       ============================= -->
+  <script>
+    // Immediately-scoped helper functions and initialization
+    (function(){
+      // THEME TOGGLE (persist preference)
+      const root = document.documentElement;
+      const themeToggle = document.getElementById('theme-toggle');
+      const storageKey = 'cpu_guide_theme';
+      const saved = localStorage.getItem(storageKey);
+      if(saved) document.documentElement.setAttribute('data-theme', saved);
+
+      themeToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'light' ? '' : 'light';
+        if(next) document.documentElement.setAttribute('data-theme', next);
+        else document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem(storageKey, next || 'dark');
+      });
+
+      // SCROLL PROGRESS BAR
+      const progress = document.getElementById('progress');
+      window.addEventListener('scroll', () => {
+        const h = document.documentElement;
+        const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+        progress.style.transform = 'scaleX(' + Math.max(0, Math.min(1,pct)) + ')';
+      }, {passive:true});
+
+      // BACK TO TOP
+      const back = document.getElementById('backTop');
+      back.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+      window.addEventListener('scroll', () => {
+        back.style.display = (window.scrollY > 400) ? 'grid' : 'none';
+      });
+
+      // SEARCH: simple filtering of headings, timeline, and expandable details
+      const search = document.getElementById('site-search');
+      search.addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        // show/hide sections based on matching text
+        document.querySelectorAll('main section, main details').forEach(el => {
+          const text = (el.innerText || el.textContent).toLowerCase();
+          const matches = !q || text.includes(q);
+          el.style.display = matches ? '' : 'none';
+        });
+        // Ensure header and progress always visible
+      });
+
+      // Expandable keyboard accessibility (space/enter toggles)
+      document.querySelectorAll('.expandable').forEach(d => {
+        d.setAttribute('tabindex','0');
+        d.addEventListener('keydown', (ev) => {
+          if(ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            d.open = !d.open;
+          }
+        });
+      });
+
+      // SVG Diagram interactions: clicking parts shows info
+      const info = document.getElementById('svg-info');
+      function setSvgInfo(title, text){
+        info.innerHTML = '<strong>' + title + '</strong><div style="margin-top:6px">'+text+'</div>';
+      }
+      document.getElementById('svg-alu').addEventListener('click', () => {
+        setSvgInfo('ALU — Arithmetic Logic Unit', 'Performs arithmetic and logic operations (add, subtract, AND, OR, shifts). Multiple ALUs or vector ALUs exist in modern designs.');
+      });
+      document.getElementById('svg-reg').addEventListener('click', () => {
+        setSvgInfo('Registers', 'Small, fastest storage inside CPU. Hold operands, intermediate results, return addresses, and control information.');
+      });
+      document.getElementById('svg-cu').addEventListener('click', () => {
+        setSvgInfo('Control Unit', 'Decodes instructions and generates control signals. Orchestrates the fetch-decode-execute cycle.');
+      });
+      document.getElementById('svg-cache').addEventListener('click', () => {
+        setSvgInfo('Cache', 'L1: per-core fastest; L2: larger; L3: shared. Caches hide memory latency to main DRAM.');
+      });
+
+      // Make timeline items focusable and scroll into view when queried by hash
+      if(location.hash){
+        const target = document.querySelector(location.hash);
+        if(target) setTimeout(()=> target.scrollIntoView({behavior:'smooth',block:'center'}),200);
+      }
+
+      // Simple deep-linking: clicking nav will smooth scroll
+      document.querySelectorAll('nav.primary a').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const id = a.getAttribute('href').substring(1);
+          const el = document.getElementById(id);
+          if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+        });
+      });
+
+      // Accessibility: ensure focus ring visible when navigating via keyboard
+      document.body.addEventListener('keydown', (e) => {
+        if(e.key === 'Tab') document.body.classList.add('show-focus');
+      });
+
+      // Initialize visibility of back-to-top
+      window.dispatchEvent(new Event('scroll'));
+    })();
+  </script>
+</body>
+</html>
