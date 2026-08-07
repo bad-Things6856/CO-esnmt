@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CPU Encyclopedia — Part 1: History of Computing (Before the CPU)</title>
+<meta name="description" content="Part 1 of the CPU Encyclopedia: exhaustive textbook-style history from counting sticks and abaci to stored-program machines (ENIAC, EDVAC, Manchester Baby, EDSAC, UNIVAC, IBM mainframes)." />
+<style>
+  :root{
+    --bg:#071025;--panel:rgba(255,255,255,0.04);--muted:rgba(255,255,255,0.66);--accent:#87f0ff;--card-border:rgba(255,255,255,0.06);--radius:12px;
+  }
+  [data-theme="light"]{--bg:#fbfdff;--panel:#ffffff;--muted:#334155;--accent:#0077cc;--card-border:rgba(0,0,0,0.06)}
+  html,body{height:100%;margin:0;font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#e9f2ff;background:linear-gradient(180deg,var(--bg),#021022);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1100px;margin:36px auto;padding:24px}
+  header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+  .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#8b5cf6);display:grid;place-items:center;font-weight:700;color:#021022}
+  h1{margin:0;font-size:1.6rem}
+  .muted{color:var(--muted);font-size:0.95rem}
+  nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;background:transparent;border:1px solid transparent}
+  nav a:hover{color:#fff;border-color:var(--card-border)}
+  .controls{margin-left:auto;display:flex;gap:8px}
+  input[type="search"]{padding:8px 10px;border-radius:8px;border:1px solid var(--card-border);background:transparent;color:inherit}
+  button.btn{padding:9px 12px;border-radius:8px;border:none;background:linear-gradient(90deg,var(--accent),#8b5cf6);color:#021022;font-weight:700;cursor:pointer}
+  main{margin-top:18px}
+  section.card{background:var(--panel);padding:18px;border-radius:var(--radius);border:1px solid var(--card-border);margin-bottom:18px}
+  section.card h2{margin:0 0 8px;font-size:1.15rem}
+  .sub{display:grid;grid-template-columns:1fr 360px;gap:18px}
+  @media(max-width:980px){.sub{grid-template-columns:1fr}}
+  aside{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(0,0,0,0.02),transparent);border:1px solid var(--card-border)}
+  details.summary{cursor:pointer;padding:8px;border-radius:8px;background:transparent}
+  .toc{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .anchor-link{color:var(--accent);text-decoration:none}
+  code{background:rgba(0,0,0,0.12);padding:2px 6px;border-radius:6px;font-family:monospace}
+  .diagram{border-radius:8px;padding:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid var(--card-border);font-family:monospace;white-space:pre;overflow:auto}
+  footer{margin-top:36px;color:var(--muted);font-size:0.9rem;text-align:center}
+  .print-hide{display:inline-block}
+  @media print{.print-hide{display:none} body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+  <div class="wrap" id="top">
+    <header role="banner">
+      <div class="logo" aria-hidden="true">CPU</div>
+      <div>
+        <h1>CPU Encyclopedia — Part 1: History of Computing (Before the CPU)</h1>
+        <div class="muted">Textbook-level, source-rich, and expandable — chapter 1 of the full CPU encyclopedia.</div>
+      </div>
+
+      <div class="controls" role="search">
+        <input id="search" type="search" placeholder="Search this chapter..." aria-label="Search chapter" />
+        <button id="theme" class="btn print-hide" title="Toggle theme">Theme</button>
+      </div>
+    </header>
+
+    <nav aria-label="Chapter contents" class="toc print-hide">
+      <a href="#overview" class="anchor-link">Overview</a>
+      <a href="#counting" class="anchor-link">Counting & Abacus</a>
+      <a href="#napier" class="anchor-link">Napier's Bones & Slide Rule</a>
+      <a href="#pascaline" class="anchor-link">Pascal & Leibniz Calculators</a>
+      <a href="#jacquard" class="anchor-link">Jacquard Loom & Punch Cards</a>
+      <a href="#babbage" class="anchor-link">Babbage & Ada</a>
+      <a href="#hollerith" class="anchor-link">Hollerith & Tabulation</a>
+      <a href="#electro" class="anchor-link">Relay & Vacuum Tube Computers</a>
+      <a href="#colossus-enian" class="anchor-link">Colossus / Zuse / ENIAC</a>
+      <a href="#stored" class="anchor-link">Stored-program Machines</a>
+    </nav>
+
+    <main>
+      <section class="card" id="overview" aria-labelledby="ovt">
+        <h2 id="ovt">Overview — What this chapter covers</h2>
+        <p>This chapter documents the technological and intellectual lineage that led to the modern CPU. We start from the earliest physical counting aids (sticks, notches, tally systems), progress through mechanical calculators and programmable looms, and describe the electromechanical and electronic machines whose architectural ideas — especially the stored-program concept — directly resulted in CPUs. Each topic is treated with: historical background, engineering description, physical operation, representative diagrams, key dates and people, and pointers to original references.</p>
+      </section>
+
+      <section class="card" id="counting" aria-labelledby="ctg">
+        <h2 id="ctg">Counting, Tally Systems, and the Abacus</h2>
+
+        <div class="sub">
+          <article>
+            <h3>Counting sticks, bones, tally marks — human numeric aids</h3>
+            <p>Prehistory and early societies used marks on bone, notched sticks, and grouped tallies to record quantities. These physical encodings implemented the core idea of mapping symbols to numbers. While not computational devices, they embody the separation of representation and procedure — a foundational idea for programmable machinery.</p>
+
+            <h4>Engineering explanation</h4>
+            <p>The devices enforced a discrete representation of quantities. The main "engineering" constraints were human ergonomics and the physical durability of the medium. Repeated operations required consistent methods of grouping and carrying (e.g., groups of five/tens).</p>
+
+            <h4>Real-world examples</h4>
+            <ul>
+              <li>Lebombo bone (~44,000 BCE) — one of the oldest tally artifacts.</li>
+              <li>Notched tallies for counting harvests, trade, and census data across ancient civilizations.</li>
+            </ul>
+          </article>
+
+          <aside>
+            <h4 class="muted">Key concept</h4>
+            <p class="muted">Representation + procedure = computation. Recording state (marks) and manipulating it by a defined process foreshadows mechanical and electronic computation.</p>
+          </aside>
+        </div>
+
+        <h3>Abacus</h3>
+        <p>The abacus (Chinese suanpan, Japanese soroban, Roman hand abacus) is a manual arithmetic device enabling fast addition, subtraction, and—via algorithms—multiplication and division. Its importance lies in the physical, positional representation of numbers and the algorithmic procedures that use that representation.</p>
+
+        <h4>Operation and algorithmic mapping</h4>
+        <p>Each column represents a positional digit. A set of beads per column encodes digits 0–9 using basic rules. Standard abacus algorithms implement carry and borrow operations explicitly, closely resembling digital adder logic at a conceptual level.</p>
+
+        <h4>Diagram (ASCII — soroban column):</h4>
+        <div class="diagram" aria-hidden="true">
+| Upper (heaven) bead: value 5 |
+|------------------------------|
+| o  <- heaven bead (0 or 1)   |
+|------------------------------|
+| o o o o <- earth beads (0–4) |
+        </div>
+
+        <h4>Evolution & modern relevance</h4>
+        <p>Abacus training remains common for mental arithmetic education. Conceptually, it reinforces number systems and stepwise algorithms; it can be used as an educational introduction to state machines and carry propagation.</p>
+      </section>
+
+      <section class="card" id="napier" aria-labelledby="np">
+        <h2 id="np">Napier's Bones, Slide Rule, and Logarithmic Aids</h2>
+        <p>John Napier (1550–1617) invented "Napier's bones", using rods inscribed with multiplication tables to convert multiplication/division into repeated addition/subtraction operations. The slide rule — based on logarithmic scales — was the principal analog computational tool until electronic calculators.</p>
+
+        <h4>Engineering and mathematical explanation</h4>
+        <p>Napier's Bones reduce multiplication to a form of table lookup. The slide rule maps multiplication into addition via logarithms: log(a*b)=log(a)+log(b). Engineering these devices required careful scale calibration and physical precision for accurate analog interpolation.</p>
+
+        <h4>Real-world usage</h4>
+        <p>Engineers used slide rules for rapid estimation; it remained standard across engineering education until the 1970s when pocket calculators and later digital devices displaced it.</p>
+      </section>
+
+      <section class="card" id="pascaline" aria-labelledby="ps">
+        <h2 id="ps">Pascaline, Leibniz Wheel, and Mechanical Calculators</h2>
+
+        <div class="sub">
+          <article>
+            <h3>Pascaline (Blaise Pascal, 1642)</h3>
+            <p>Designed to assist with tax computations, Pascal's machine used a set of toothed wheels and a carry mechanism. Each wheel represented a decimal digit. Mechanical carries were performed by pawls that advanced the adjacent wheel when a wheel overflowed from 9 to 0.</p>
+
+            <h4>Engineering details</h4>
+            <p>Key mechanical innovations: precision gearing, carry-propagation pawls, anti-backlash mechanisms. The device taught early lessons about mechanical complexity when performing seemingly simple arithmetic—motivating later electronic approaches.</p>
+
+            <h4>Limitations</h4>
+            <p>Mechanical friction, assembly tolerances, and maintenance made scaling to complex operations impractical; the device remained expensive and limited in speed.</p>
+          </article>
+
+          <aside>
+            <h4 class="muted">Leibniz wheel (Stepped-Drum)</h4>
+            <p class="muted">Gottfried Wilhelm Leibniz improved mechanical calculators by using a stepped-drum mechanism (the Leibniz wheel) enabling multiplication by repeated addition more compactly. This mechanism persisted in mechanical calculators into the 19th century.</p>
+          </aside>
+        </div>
+
+        <h4>Design legacy</h4>
+        <p>Mechanical calculators demonstrated three important points for later computing systems: (1) general-purpose arithmetic can be mechanized, (2) carrying/propagation is a basic engineering challenge, (3) complex encodings require precise manufacturing and low friction, which drove the search for non-mechanical technologies.</p>
+      </section>
+
+      <section class="card" id="jacquard" aria-labelledby="jc">
+        <h2 id="jc">Jacquard Loom and Early Programmability (Punch Cards)</h2>
+        <p>Joseph Marie Jacquard (1801) introduced a loom controlled by a sequence of punched cards. Each card encoded which warp threads to lift, enabling programmable textile patterns. This was one of the earliest practical examples of machine programmability using an external medium.</p>
+
+        <h4>Engineering explanation</h4>
+        <p>The loom's card-reader implemented a mechanical binary test: hole present ⇒ lift thread; hole absent ⇒ don't. This separation of program (cards) and machine (loom) established an architectural precedent: encoded instructions stored separate from the processing mechanism.</p>
+
+        <h4>Significance</h4>
+        <p>Punched cards later became a standard storage medium for data and programs (see Hollerith), influencing how instructions and data are represented and fed into machines.</p>
+      </section>
+
+      <section class="card" id="babbage" aria-labelledby="bb">
+        <h2 id="bb">Charles Babbage — Difference Engine and Analytical Engine</h2>
+
+        <div class="sub">
+          <article>
+            <h3>Difference Engine (1822‑1830s)</h3>
+            <p>Babbage's Difference Engine was an automatic mechanical calculator specialized to compute polynomial functions using the method of finite differences. It was essentially an automated table-generator.</p>
+
+            <h4>Mechanical and algorithmic design</h4>
+            <p>The machine used gear assemblies to represent decimal digits and mechanical carries. The design required extremely precise manufacturing. Although Babbage did not complete a full large-scale working machine in his lifetime, the design is historically important for mechanized computation and precision engineering.</p>
+          </article>
+
+          <article>
+            <h3>Analytical Engine — programmable mechanical computer</h3>
+            <p>The Analytical Engine (proposed 1837) implemented a full architecture: an arithmetic unit, a control unit, a separate memory (store), and programmable control via punched cards (plan). It can be considered the first conceptual design of a general-purpose programmable machine.</p>
+
+            <h4>Architectural significance</h4>
+            <p>The Analytical Engine separated data and instructions, included conditional branching and loops expressed in card sequences, and used registers and an arithmetic unit. Babbage's design anticipated many features of modern CPUs and stored-program machines (except that his instructions were external punch cards rather than memory addresses inside the machine).</p>
+          </article>
+        </div>
+
+        <h4>Ada Lovelace</h4>
+        <p>Ada Lovelace (Augusta Ada King, Countess of Lovelace) worked with Babbage and wrote what is widely recognized as the first published algorithm intended for processing by a machine — thus often called the first computer programmer. Her notes emphasized the difference between calculation and "general" computation/processing of symbols, foreshadowing modern software concepts.</p>
+      </section>
+
+      <section class="card" id="hollerith" aria-labelledby="hl">
+        <h2 id="hl">Herman Hollerith and Electromechanical Tabulation</h2>
+        <p>Herman Hollerith (late 19th century) developed a punch-card tabulator to speed the 1890 U.S. census. His machines used punched cards, electromechanical readers, and counting relays. Hollerith's company later became part of IBM.</p>
+
+        <h4>Engineering explanation</h4>
+        <p>Key components: card punch, card feed, electrical contacts that closed when a hole passed a sensing pin, and relay-based counters. This system applied electromechanical automation to data processing, dramatically reducing labor and time for large-scale tabulation tasks.</p>
+
+        <h4>Impact</h4>
+        <p>Hollerith's approach introduced standardized punched-card data representation and batch processing, foreshadowing how data and instructions could be represented for machines. The electromechanical tabulator is a direct ancestor to later computer input/output systems.</p>
+      </section>
+
+      <section class="card" id="electro" aria-labelledby="el">
+        <h2 id="el">Relay Computers, Vacuum-Tube Computers, and Early Electronic Machines</h2>
+        <div class="sub">
+          <article>
+            <h3>Relay-based machines</h3>
+            <p>Electromechanical relay computers used electromagnetic relays as switches. Relays had mechanical contacts actuated by coils; switching speeds were limited by mechanical motion (milliseconds) and hence these machines were slow but more reliable than purely mechanical calculators.</p>
+
+            <h4>Examples</h4>
+            <ul>
+              <li>Konrad Zuse's Z-series (Z1–Z3) — early binary relay and mechanical computers in Germany (1930s–1940s).</li>
+              <li>Various telephone-exchange-derived machines for switching and basic computation.</li>
+            </ul>
+          </article>
+
+          <article>
+            <h3>Vacuum-tube computers</h3>
+            <p>Vacuum tubes (valves) provided high-speed electronic switching (microseconds) and amplification — the enabling technology for the first large-scale electronic digital computers.</p>
+
+            <h4>Key machines</h4>
+            <ul>
+              <li>Electronic Numerical Integrator and Computer (ENIAC, 1945) — built using ~17,000 vacuum tubes; used decimal arithmetic in accumulators and plugboard programming.</li>
+              <li>Colossus (UK, 1943‑45) — specialized electronic machine for cryptanalysis (Lorenz cipher) using vacuum tubes; among the first large-scale programmable electronic machines.</li>
+            </ul>
+
+            <h4>Engineering challenges</h4>
+            <p>Vacuum tubes consumed large power, produced heat, and had limited MTBF (mean time between failures). However their switching speed made previously infeasible computation possible and motivated the search for solid-state switching.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="card" id="colossus-enian" aria-labelledby="ce">
+        <h2 id="ce">Zuse, Colossus, ENIAC — Practical Electronic & Programmed Machines</h2>
+
+        <h3>Zuse (Germany)</h3>
+        <p>Konrad Zuse built early programmable machines: Z1 (mechanical binary, 1936), Z2 (electromechanical), Z3 (1941, relay-based — Turing-complete by modern analysis). The Z3 used floating-point arithmetic and a binary representation; its design anticipated elements of later digital computers.</p>
+
+        <h3>Colossus (UK)</h3>
+        <p>Colossus machines were highly specialized electronic machines built during WWII for breaking the Lorenz cipher. They used vacuum tubes and paper-tape input with highly parallel logic to perform statistical analysis on intercepted ciphertext — an early example of applying electronic processing to a domain-specific "compute problem."</p>
+
+        <h3>ENIAC (USA)</h3>
+        <p>ENIAC (1945) was modular, used decimal accumulators, and relied on plugboards and switches for programming. It performed ballistic trajectory calculations, among other tasks, and demonstrated the viability of large-scale electronic computation.</p>
+      </section>
+
+      <section class="card" id="stored" aria-labelledby="sp">
+        <h2 id="sp">The Stored-Program Concept and Early Stored-Program Computers</h2>
+        <p>The stored-program concept (instructions kept in memory alongside data) is the pivotal architectural idea leading directly to modern CPUs. Formally articulated in the mid-1940s (von Neumann and other researchers), this idea allowed programs to be treated as data, enabling self-modifying code and much greater flexibility in programming.</p>
+
+        <h3>EDVAC, EDSAC, Manchester Baby, and the IAS</h3>
+        <ul>
+          <li><strong>EDVAC (electronic discrete variable automatic computer)</strong> — proposed as a stored-program machine; design documents (EDVAC report) spread the stored-program architecture.</li>
+          <li><strong>Manchester Baby (Small-Scale Experimental Machine, 1948)</strong> — the first machine to run a program from electronic memory (Williams tubes) — it successfully executed a simple program stored in memory.</li>
+          <li><strong>EDSAC (1949)</strong> — built at Cambridge, provided practical stored‑program computing for scientific work and included an assembler and libraries.</li>
+          <li><strong>IAS (Institute for Advanced Study) machine</strong> — John von Neumann and colleagues’ architecture influenced subsequent commercial designs and documentation dissemination.</li>
+        </ul>
+
+        <h4>Why stored-program matters — engineering viewpoint</h4>
+        <p>Storing programs in memory solves several problems simultaneously: higher flexibility of software, the ability for compilers and high-level languages, simpler input/output (programs can be loaded like data), and the foundation for operating systems and abstractions such as process control. Technically, it required fast, reliable memory technologies (magnetic core, Williams tubes, mercury delay lines) and an instruction set architecture defining how instructions are encoded and executed.</p>
+      </section>
+
+      <section class="card" id="ibm-univac" aria-labelledby="iu">
+        <h2 id="iu">UNIVAC, IBM Mainframes, and Commercial Computing</h2>
+        <p>Post-war commercial machines applied stored-program ideas to business data processing. Notable systems:</p>
+        <ul>
+          <li><strong>UNIVAC I (1951)</strong> — by Eckert and Mauchly, designed for commercial data processing, famous for correct prediction of a U.S. election in media coverage.</li>
+          <li><strong>IBM 701 / 700 series</strong> — IBM developed high-end scientific and business machines, later standardizing programmability, instruction sets, and peripheral ecosystems that shaped industry practices.</li>
+        </ul>
+        <p>These systems introduced production-scale data centers, batch processing, punched-card I/O (backwards compatibility with Hollerith), and the early software industry (compilers, assemblers, systems software).</p>
+      </section>
+
+      <section class="card" id="epilogue" aria-labelledby="epi">
+        <h2 id="epi">Epilogue: How these inventions led to the CPU</h2>
+        <p>Key takeaways from Part 1:</p>
+        <ol>
+          <li>Representation and procedural manipulation (from tally marks to the abacus) are base-level concepts of computation.</li>
+          <li>Programmability (Jacquard cards, Babbage's Analytical Engine) separated program and machine — a foundational architecture idea.</li>
+          <li>Electromechanical and electronic switching (relays, vacuum tubes) introduced the speed and reliability needed for automated calculation at scale.</li>
+          <li>The stored-program concept unified data and instructions in memory, making the CPU (a device to interpret and execute encoded instructions) both necessary and practical.</li>
+        </ol>
+        <p>This concludes Part 1. The next part in the encyclopedia (Part 2) will document the invention of the CPU itself: early transistor research, integrated circuits, MOS technologies, microprocessors, and the transition from laboratory inventions to commercial microprocessor products (Intel, AMD, MOS Technology, Zilog, IBM and more).</p>
+        <p class="muted">If you want: I can now (A) generate Part 2 in the same format, (B) commit this Part 1 file to your repository, or (C) integrate this content into your existing index.html. Reply with "Part 2", "Commit Part 1", or "Integrate into index".</p>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="muted">Part 1 — History of Computing (draft). Citations and extended references are available on request. This material is intended as the first installment; the full encyclopedia will be released chapter-by-chapter.</div>
+    </footer>
+  </div>
+
+<script>
+  // Basic interactivity: search and theme toggle
+  (function(){
+    const search=document.getElementById('search');
+    search.addEventListener('input', (e)=>{
+      const q=e.target.value.trim().toLowerCase();
+      document.querySelectorAll('main section.card').forEach(sec=>{
+        const txt=(sec.innerText||'').toLowerCase();
+        sec.style.display = (!q || txt.includes(q)) ? '' : 'none';
+      });
+    });
+    const theme=document.getElementById('theme');
+    theme.addEventListener('click', ()=> {
+      if(document.documentElement.getAttribute('data-theme')==='light') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme','light');
+      }
+    });
+    // Smooth anchor scrolling
+    document.querySelectorAll('nav a').forEach(a=>{
+      a.addEventListener('click', (ev)=>{
+        ev.preventDefault();
+        const id=a.getAttribute('href').slice(1);
+        document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+  })();
+</script>
+</body>
+</html>
